@@ -94,3 +94,7 @@ Vite 已配置代理:`/api → http://localhost:8080`,前端无需处理跨域�
 - **逻辑删除相关 SQL 报错**:`application.yaml` 中 MyBatis-Plus 逻辑删除值必须是 `true/false`(PostgreSQL boolean),不要改回 `1/0`。
 - **端口冲突**:前端改 `itsm-ui/vite.config.ts` 的 `server.port`;后端改 `application.yaml` 的 `server.port`(同步调整前端代理 target)。
 
+
+## 事件管理
+
+事件管理使用真实后端及数据库，入口为“工单管理 → 事件管理”。功能、草案冲突处理、配置及测试方式见 [事件管理实现说明](docs/事件管理实现说明.md)。

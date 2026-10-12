@@ -1,5 +1,10 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, onMounted, ref } from 'vue';
+import http from '../api/http';
+import {incidentApi} from '../api/incident';
+const incidentCounts = ref<Record<string,number>>({});
+const incidentEnabled = ref(false);
+onMounted(async () => { try { const me = await http.get<never,{roles:string[];perms:string[]}>('/auth/me'); incidentEnabled.value = me.roles.includes('ADMIN') || me.perms.includes('itsm:incident:list'); if (incidentEnabled.value) incidentCounts.value = await incidentApi.counters(); } catch { incidentEnabled.value = false; } });
 import { useRouter } from 'vue-router';
 import {
   ticketStore, TYPE_LABEL, TYPE_TAG,
@@ -23,6 +28,12 @@ function fmtTime(v: string): string {
 
 <template>
   <div>
+    <el-card v-if="incidentEnabled" style="margin-bottom:16px">
+      <template #header><el-link type="primary" @click="router.push('/incidents')">事件待办</el-link></template>
+      <el-row :gutter="16"><el-col v-for="[key,label,tab] in [['takeover','待我接管','takeover'],['processing','待我处理','processing'],['collaborationUnread','协作未读','forwarded'],['confirm','待确认解决','created']]" :key="key" :span="6">
+        <el-link @click="router.push({path:'/incidents',query:{tab}})"><el-statistic :title="label" :value="incidentCounts[key] || 0" /></el-link>
+      </el-col></el-row>
+    </el-card>
     <!-- 统计卡 -->
     <el-row :gutter="16">
       <el-col :span="5">
@@ -99,7 +110,7 @@ function fmtTime(v: string): string {
           <template #header>快捷操作</template>
           <div class="quick-grid">
             <el-button size="large" type="primary" plain @click="router.push('/tickets/create')">
-              ＋ 提交事件 / 请求
+              ＋ 提交工单
             </el-button>
             <el-button size="large" plain @click="router.push('/my-tickets/todo')">
               📋 我的工单

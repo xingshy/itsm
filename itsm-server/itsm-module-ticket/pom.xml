@@ -15,6 +15,10 @@
     <description>工单域:事件/服务请求/工作台/评价(设计文档 7.2、7.3)</description>
 
     <dependencies>
+        <dependency><groupId>com.itsm</groupId><artifactId>itsm-module-platform</artifactId><version>${project.version}</version></dependency>
+        <dependency><groupId>org.springframework</groupId><artifactId>spring-jdbc</artifactId></dependency>
+        <dependency><groupId>org.springframework.boot</groupId><artifactId>spring-boot-starter-test</artifactId><scope>test</scope></dependency>
+        <dependency><groupId>org.postgresql</groupId><artifactId>postgresql</artifactId><scope>test</scope></dependency>
         <dependency>
             <groupId>com.itsm</groupId>
             <artifactId>itsm-common</artifactId>

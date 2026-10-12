@@ -37,11 +37,10 @@ public class LoginUserLoaderImpl implements LoginUserLoader {
                         Wrappers.<SysUserRole>lambdaQuery().eq(SysUserRole::getUserId, userId))
                 .stream().map(SysUserRole::getRoleId).toList();
 
-        Set<String> roles = roleIds.isEmpty() ? Set.of()
-                : roleMapper.selectBatchIds(roleIds).stream()
-                        .filter(r -> r.getStatus() != null && r.getStatus() == 1)
-                        .map(SysRole::getCode)
-                        .collect(Collectors.toSet());
+        List<SysRole> enabledRoles = roleIds.isEmpty() ? List.of() : roleMapper.selectBatchIds(roleIds).stream()
+                .filter(r -> r.getStatus() != null && r.getStatus() == 1).toList();
+        Set<String> roles = enabledRoles.stream().map(SysRole::getCode).collect(Collectors.toSet());
+        roleIds = enabledRoles.stream().map(SysRole::getId).toList();
 
         boolean admin = roles.contains(LoginUser.ROLE_ADMIN);
         Set<String> perms = admin ? Set.of() : menuService.permsOf(roleIds);

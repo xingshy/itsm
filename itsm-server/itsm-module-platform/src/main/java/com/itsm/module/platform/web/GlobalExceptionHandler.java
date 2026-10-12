@@ -33,6 +33,15 @@ public class GlobalExceptionHandler {
         return Result.fail(ErrorCode.BAD_REQUEST, message);
     }
 
+    @ExceptionHandler({org.springframework.web.bind.MissingRequestHeaderException.class,
+            org.springframework.web.bind.MissingServletRequestParameterException.class,
+            org.springframework.web.method.annotation.MethodArgumentTypeMismatchException.class,
+            org.springframework.http.converter.HttpMessageNotReadableException.class,
+            org.springframework.web.multipart.MaxUploadSizeExceededException.class})
+    public Result<Void> handleRequest(Exception e) {
+        return Result.fail(ErrorCode.BAD_REQUEST, "请求参数、幂等键、编号或附件大小不符合要求");
+    }
+
     /** 兜底:未知异常不向前端泄漏堆栈 */
     @ExceptionHandler(Exception.class)
     public Result<Void> handleOther(Exception e) {

@@ -20,6 +20,9 @@ const router = createRouter({
           meta: {title: '工作台'},
           component: () => import('../views/WorkbenchView.vue')
         },
+        {path: 'incidents', name: 'incident-list', meta: {title: '事件管理'}, component: () => import('../views/incident/IncidentListView.vue')},
+        {path: 'incidents/create', name: 'incident-create', meta: {title: '新增事件'}, component: () => import('../views/incident/IncidentDetailView.vue')},
+        {path: 'incidents/:id', name: 'incident-detail', meta: {title: '事件详情'}, component: () => import('../views/incident/IncidentDetailView.vue')},
         // ===== M2 工单域(原型) =====
         {
           path: 'tickets',
