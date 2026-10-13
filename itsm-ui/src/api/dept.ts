@@ -1,5 +1,5 @@
 import http from './http';
-import type { PageResult } from './user';
+import type {PageResult} from './user';
 
 export interface DeptNode {
   id: string;
@@ -29,6 +29,8 @@ export function deleteDept(id: string): Promise<void> {
 export interface LeaderOption {
   id: number;
   username: string;
+  /** 工号(可与登录名不同) */
+  employeeNo: string | null;
   nickname: string;
   email: string | null;
   phone: string | null;

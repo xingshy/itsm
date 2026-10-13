@@ -40,6 +40,8 @@ export interface RoleVO {
 export interface UserVO {
   id: number;
   username: string;
+  /** 工号(可与登录名不同) */
+  employeeNo: string | null;
   nickname: string;
   deptId: string | null;
   deptName: string | null;

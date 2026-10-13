@@ -30,14 +30,14 @@ public class DeptController {
     private final SysDeptService deptService;
     private final SysUserService userService;
 
-    public record LeaderOption(Long id, String username, String nickname, String email, String phone) {}
+    public record LeaderOption(Long id, String username, String employeeNo, String nickname, String email, String phone) {}
 
     @GetMapping("/leader-options")
     @RequirePerm("sys:dept:list")
     public Result<List<LeaderOption>> leaderOptions(String keyword) {
         return Result.ok(userService.page(new UserQuery(1, 50,
                 keyword == null ? null : keyword.trim(), null, 1)).getRecords().stream()
-                .map(u -> new LeaderOption(u.id(), u.username(), u.nickname(), u.email(), u.phone()))
+                .map(u -> new LeaderOption(u.id(), u.username(), u.employeeNo(), u.nickname(), u.email(), u.phone()))
                 .toList());
     }
 
@@ -49,7 +49,7 @@ public class DeptController {
         int size = pageSize == null ? 20 : Math.max(1, Math.min(100, pageSize));
         var users = userService.page(new UserQuery(page, size, null, id, null));
         return Result.ok(PageResult.of(users.getTotal(), page, size, users.getRecords().stream()
-                .map(u -> new LeaderOption(u.id(), u.username(), u.nickname(), u.email(), u.phone()))
+                .map(u -> new LeaderOption(u.id(), u.username(), u.employeeNo(), u.nickname(), u.email(), u.phone()))
                 .toList()));
     }
 

@@ -224,6 +224,7 @@ function onDelete(row: UserVO): void {
 
     <!-- 列表 -->
     <el-table :data="rows" v-loading="loading" stripe>
+      <el-table-column prop="employeeNo" label="工号" min-width="120" />
       <el-table-column prop="username" label="用户名" min-width="120" />
       <el-table-column prop="nickname" label="姓名" min-width="110" />
       <el-table-column label="部门" min-width="130">

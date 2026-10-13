@@ -24,7 +24,7 @@ class DeptNodeSerializationTest {
 
     @Test
     void userDepartmentIdUsesSameStringRepresentation() throws Exception {
-        var user = new UserVO(1L, "user", "员工", 2109436731911725057L,
+        var user = new UserVO(1L, "user", "EMP0001", "员工", 2109436731911725057L,
                 "测试部门", null, null, 1, java.util.List.of(), java.util.List.of(), null);
         var json = mapper.readTree(mapper.writeValueAsString(user));
         assertTrue(json.get("deptId").isTextual());

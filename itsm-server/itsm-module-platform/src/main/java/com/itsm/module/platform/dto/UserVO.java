@@ -10,6 +10,7 @@ import java.util.List;
 public record UserVO(
         Long id,
         String username,
+        String employeeNo,
         String nickname,
         @JsonSerialize(using = ToStringSerializer.class) Long deptId,
         String deptName,

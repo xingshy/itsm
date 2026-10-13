@@ -30,6 +30,7 @@ watch(() => props.deptId, () => { page.value = 1; total.value = 0; void load(); 
     <div class="employee-summary">直属员工共 {{ total }} 人</div>
     <el-table :data="employees" v-loading="loading" stripe empty-text="暂无直属员工" max-height="360">
       <el-table-column prop="nickname" label="姓名" min-width="100" />
+      <el-table-column prop="employeeNo" label="工号" min-width="120" />
       <el-table-column prop="username" label="账号" min-width="140" />
       <el-table-column prop="email" label="邮箱" min-width="200" />
       <el-table-column prop="phone" label="手机号" min-width="140" />

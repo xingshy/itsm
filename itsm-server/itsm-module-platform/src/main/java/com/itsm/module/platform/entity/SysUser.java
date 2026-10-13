@@ -19,6 +19,8 @@ public class SysUser extends BaseDO {
     private String nickname;
     private String email;
     private String phone;
+    /** 工号(可与登录名不同,如 mock 数据 bank_emp_XXXX) */
+    private String employeeNo;
     private Long deptId;
     private Integer status;
     private OffsetDateTime lastLoginAt;
